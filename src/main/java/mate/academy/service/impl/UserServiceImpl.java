@@ -11,9 +11,11 @@ import mate.academy.model.Role;
 import mate.academy.model.User;
 import mate.academy.repository.role.RoleRepository;
 import mate.academy.repository.user.UserRepository;
+import mate.academy.service.ShoppingCartService;
 import mate.academy.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +23,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
+    private final ShoppingCartService shoppingCartService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         if (userRepository.existsByEmail(requestDto.email())) {
@@ -35,7 +39,8 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName(Role.RoleName.ROLE_USER).orElseThrow(() ->
                 new EntityNotFoundException("Can't find the USER role"));
         user.setRoles(Set.of(userRole));
-        return userMapper.toDto(
-                userRepository.save(user));
+        userRepository.save(user);
+        shoppingCartService.createShoppingCart(user);
+        return userMapper.toDto(user);
     }
 }

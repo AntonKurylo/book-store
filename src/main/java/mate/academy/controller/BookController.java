@@ -59,7 +59,7 @@ public class BookController {
         return bookService.updateById(id, requestDto);
     }
 
-    @Operation(summary = "Delete a book by id", description = "Deletes a book by id")
+    @Operation(summary = "Remove a book by id", description = "Removes a book by id")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

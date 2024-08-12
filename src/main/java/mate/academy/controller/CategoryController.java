@@ -62,7 +62,7 @@ public class CategoryController {
         return categoryService.updateById(id, requestDto);
     }
 
-    @Operation(summary = "Delete a category by id", description = "Deletes a category by id")
+    @Operation(summary = "Remove a category by id", description = "Removes a category by id")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

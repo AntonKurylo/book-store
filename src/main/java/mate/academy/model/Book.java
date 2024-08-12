@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.SQLRestriction;
 @SQLRestriction(value = "is_deleted=false")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +45,8 @@ public class Book {
     private Set<Category> categories;
     @Column(nullable = false)
     private boolean isDeleted = false;
+
+    public Book(Long id) {
+        this.id = id;
+    }
 }
