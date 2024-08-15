@@ -1,9 +1,9 @@
 package mate.academy.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.cartitem.CreateCartItemRequestDto;
-import mate.academy.dto.cartitem.UpdateCartItemRequestDto;
+import mate.academy.dto.shoppingcart.CreateCartItemRequestDto;
 import mate.academy.dto.shoppingcart.ShoppingCartDto;
+import mate.academy.dto.shoppingcart.UpdateCartItemRequestDto;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.ShoppingCartMapper;
 import mate.academy.model.Book;

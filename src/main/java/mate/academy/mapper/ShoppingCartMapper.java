@@ -1,8 +1,8 @@
 package mate.academy.mapper;
 
 import mate.academy.config.MapperConfig;
-import mate.academy.dto.cartitem.CartItemDto;
-import mate.academy.dto.cartitem.CreateCartItemRequestDto;
+import mate.academy.dto.shoppingcart.CartItemDto;
+import mate.academy.dto.shoppingcart.CreateCartItemRequestDto;
 import mate.academy.dto.shoppingcart.ShoppingCartDto;
 import mate.academy.model.CartItem;
 import mate.academy.model.ShoppingCart;

@@ -13,4 +13,5 @@ databaseChangeLog:
                     primaryKey: true
                     foreignKeyName: fk_shopping_carts_user
                     referencedTableName: users
+                    referencedColumnNames: id
                     nullable: false

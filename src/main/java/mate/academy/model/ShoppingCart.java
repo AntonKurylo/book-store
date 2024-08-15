@@ -22,12 +22,7 @@ public class ShoppingCart {
     private Long id;
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "user_id",
-            referencedColumnName = "id",
-            nullable = false,
-            unique = true
-    )
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
     private User user;
     @OneToMany(
             mappedBy = "shoppingCart",

@@ -17,7 +17,7 @@ public class IsbnValidator implements ConstraintValidator<Isbn, String> {
 
     @Override
     public boolean isValid(String isbn, ConstraintValidatorContext constraintValidatorContext) {
-        if (Strings.isNotEmpty(isbn)) {
+        if (Strings.isNotBlank(isbn)) {
             return Pattern.matches(ISBN10_FORMAT, isbn) || Pattern.matches(ISBN13_FORMAT, isbn);
         }
         return false;
