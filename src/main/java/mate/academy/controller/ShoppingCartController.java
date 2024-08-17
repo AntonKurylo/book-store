@@ -47,9 +47,9 @@ public class ShoppingCartController {
             description = "Updates the quantity of the item in the shopping cart by id")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/items/{cartItemId}")
-    public ShoppingCartDto updateCartItem(@PathVariable Long cartItemId,
+    public ShoppingCartDto updateCartItemById(@PathVariable Long cartItemId,
                                           @RequestBody @Valid UpdateCartItemRequestDto requestDto) {
-        return shoppingCartService.updateCartItem(cartItemId, requestDto);
+        return shoppingCartService.updateCartItemById(cartItemId, requestDto);
     }
 
     @Operation(summary = "Remove a cartItem by id",
@@ -57,7 +57,7 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("/items/{cartItemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCartItem(@PathVariable Long cartItemId) {
-        shoppingCartService.deleteCartItem(cartItemId);
+    public void deleteCartItemById(@PathVariable Long cartItemId) {
+        shoppingCartService.deleteCartItemById(cartItemId);
     }
 }

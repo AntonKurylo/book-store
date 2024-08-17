@@ -11,7 +11,7 @@ import mate.academy.model.CartItem;
 import mate.academy.model.ShoppingCart;
 import mate.academy.model.User;
 import mate.academy.repository.book.BookRepository;
-import mate.academy.repository.cartitem.CartItemRepository;
+import mate.academy.repository.shoppingcart.CartItemRepository;
 import mate.academy.repository.shoppingcart.ShoppingCartRepository;
 import mate.academy.security.AuthenticationService;
 import mate.academy.service.ShoppingCartService;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    private final AuthenticationService authenticationService;
+    private final AuthenticationService authService;
     private final BookRepository bookRepository;
     private final CartItemRepository cartItemRepository;
     private final ShoppingCartMapper shoppingCartMapper;
@@ -37,7 +37,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto findByUser() {
         return shoppingCartMapper.toShoppingCartDto(
                 shoppingCartRepository.findByUserId(
-                        authenticationService.getAuthenticatedUserId()));
+                        authService.getAuthenticatedUserId()));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Book book = bookRepository.findById(requestDto.bookId()).orElseThrow(() ->
                 new EntityNotFoundException("Can't find a book by id: " + requestDto.bookId()));
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(
-                authenticationService.getAuthenticatedUserId());
+                authService.getAuthenticatedUserId());
         CartItem cartItem = shoppingCart.getCartItems().stream()
                 .filter(item -> item.getBook().getId().equals(requestDto.bookId()))
                 .findFirst()
@@ -63,9 +63,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartDto updateCartItem(Long cartItemId, UpdateCartItemRequestDto requestDto) {
-        Long authenticatedUserId = authenticationService.getAuthenticatedUserId();
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(authenticatedUserId);
+    public ShoppingCartDto updateCartItemById(
+            Long cartItemId,UpdateCartItemRequestDto requestDto) {
+        Long authUserId = authService.getAuthenticatedUserId();
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(authUserId);
         CartItem cartItem = shoppingCart.getCartItems().stream()
                 .filter(item -> item.getId().equals(cartItemId))
                 .findFirst()
@@ -74,21 +75,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                     return item;
                 }).orElseThrow(() ->
                         new EntityNotFoundException("Can't find a cartItem by id: "
-                                + cartItemId + " for user: " + authenticatedUserId));
+                                + cartItemId + " for user id: " + authUserId));
         cartItemRepository.save(cartItem);
         return shoppingCartMapper.toShoppingCartDto(shoppingCart);
     }
 
     @Override
-    public void deleteCartItem(Long cartItemId) {
-        Long authenticatedUserId = authenticationService.getAuthenticatedUserId();
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(authenticatedUserId);
+    public void deleteCartItemById(Long cartItemId) {
+        Long authUserId = authService.getAuthenticatedUserId();
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(authUserId);
         shoppingCart.getCartItems().stream()
                 .filter(item -> item.getId().equals(cartItemId))
                 .findFirst()
                 .orElseThrow(() ->
                         new EntityNotFoundException("Can't find a cartItem by id: "
-                                + cartItemId + " for user: " + authenticatedUserId));
+                                + cartItemId + " for user id: " + authUserId));
         cartItemRepository.deleteById(cartItemId);
     }
 }

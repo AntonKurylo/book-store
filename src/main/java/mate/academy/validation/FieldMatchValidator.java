@@ -2,6 +2,7 @@ package mate.academy.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.Objects;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,8 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
-        String fieldValue = (String) new BeanWrapperImpl(value).getPropertyValue(field);
-        String fieldMatchValue = (String) new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
-        return fieldValue != null && fieldValue.equals(fieldMatchValue);
+        Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
+        Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
+        return Objects.equals(fieldValue, fieldMatchValue);
     }
 }

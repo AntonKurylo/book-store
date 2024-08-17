@@ -32,7 +32,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable).stream()
+        return bookRepository.findAll(pageable)
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -40,14 +40,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto findById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't find a book by id: " + id));
+                new EntityNotFoundException("Cannot find a book by id: " + id));
         return bookMapper.toDto(book);
     }
 
     @Override
     public BookDto updateById(Long id, CreateBookRequestDto requestDto) {
         Book bookFromDb = bookRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't find a book by id: " + id));
+                new EntityNotFoundException("Cannot find a book by id: " + id));
         Book bookToSave = bookMapper.toEntity(requestDto);
         bookToSave.setId(bookFromDb.getId());
         return bookMapper.toDto(bookRepository.save(bookToSave));
@@ -61,15 +61,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> search(BookSearchParametersDto searchParameters, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(searchParameters);
-        return bookRepository.findAll(bookSpecification, pageable).stream()
+        return bookRepository.findAll(bookSpecification, pageable)
                 .map(bookMapper::toDto)
                 .toList();
     }
 
     @Override
     public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId, Pageable pageable) {
-        List<Book> allByCategoriesId = bookRepository.findAllByCategories_Id(categoryId, pageable);
-        return allByCategoriesId.stream()
+        return bookRepository.findAllByCategoriesId(categoryId, pageable)
                 .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }

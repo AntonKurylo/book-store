@@ -1,6 +1,5 @@
 package mate.academy.repository.book;
 
-import java.util.List;
 import java.util.Optional;
 import mate.academy.model.Book;
 import org.springframework.data.domain.Page;
@@ -24,5 +23,5 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     Optional<Book> findById(Long id);
 
     @EntityGraph(attributePaths = "categories")
-    List<Book> findAllByCategories_Id(Long categoryId, Pageable pageable);
+    Page<Book> findAllByCategoriesId(Long categoryId, Pageable pageable);
 }
