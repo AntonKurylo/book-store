@@ -29,4 +29,8 @@ public class ShoppingCart {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
     private Set<CartItem> cartItems;
+
+    public void clear() {
+        cartItems.clear();
+    }
 }

@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-order-items
+      author: mateacademy
+      changes:
+        - insert:
+            tableName: order_items
+            columns:
+              - column: { name: order_id, valueNumeric: "1" }
+              - column: { name: book_id, valueNumeric: "2" }
+              - column: { name: quantity, valueNumeric: "5" }
+              - column: { name: price, valueNumeric: "24.99" }
