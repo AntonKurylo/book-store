@@ -47,29 +47,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> findAllByUser(Pageable pageable) {
-        return orderRepository.findAllByUserId(authService.getAuthenticatedUserId(), pageable)
-                .map(orderMapper::toDto)
-                .toList();
+        List<Order> orders = orderRepository
+                .findAllByUserId(authService.getAuthenticatedUserId(), pageable)
+                .getContent();
+        return orderMapper.toOrderDtos(orders);
     }
 
     @Override
     public UpdateOrderResponseDto updateById(Long id, UpdateOrderRequestDto requestDto) {
-        Order updatedOrder = orderRepository.findById(id)
-                .map(order -> {
-                    order.setStatus(requestDto.status());
-                    return order;
-                }).orElseThrow(() ->
-                        new EntityNotFoundException("Cannot find an order by id: " + id));
+        Order updatedOrder = orderRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException("Cannot find an order by id: " + id));
+        updatedOrder.setStatus(requestDto.status());
         return orderMapper.toUpdateDto(orderRepository.save(updatedOrder));
     }
 
     @Override
     public List<OrderItemDto> findAllOrderItemsByOrderId(Long orderId, Pageable pageable) {
         Long authUserId = authService.getAuthenticatedUserId();
-        return orderItemRepository
-                .findAllByOrderIdAndUserId(orderId, authUserId, pageable).stream()
-                .map(orderMapper::toOrderItemDto)
-                .toList();
+        List<OrderItem> orderItems = orderItemRepository
+                .findAllByOrderIdAndUserId(orderId, authUserId, pageable)
+                .getContent();
+        return orderMapper.toOrderItemDtos(orderItems);
     }
 
     @Override

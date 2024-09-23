@@ -1,6 +1,7 @@
 package mate.academy.mapper;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import mate.academy.config.MapperConfig;
@@ -37,6 +38,10 @@ public interface OrderMapper {
             @Mapping(source = "book.price", target = "price")
     })
     OrderItem cartItemToOrderItem(CartItem cartItem);
+
+    List<OrderDto> toOrderDtos(List<Order> orders);
+
+    List<OrderItemDto> toOrderItemDtos(List<OrderItem> orderItems);
 
     @Named("total")
     default BigDecimal getTotal(Set<CartItem> cartItems) {
