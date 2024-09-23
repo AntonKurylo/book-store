@@ -15,12 +15,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(255)
+                  type: varchar(128)
                   constraints:
                     nullable: false
               - column:
                   name: description
-                  type: varchar(255)
+                  type: varchar(256)
               - column:
                   name: is_deleted
                   type: boolean

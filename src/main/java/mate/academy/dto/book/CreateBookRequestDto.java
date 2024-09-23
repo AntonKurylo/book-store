@@ -13,20 +13,20 @@ import mate.academy.validation.Isbn;
 @Getter
 @Setter
 public class CreateBookRequestDto {
-    private static final int MIN_DESCRIPTION_LENGTH = 25;
-    private static final int MAX_DESCRIPTION_LENGTH = 1024;
-
-    @NotBlank
+    @NotBlank(message = "Title cannot be empty")
+    @Size(max = 128, message = "Title must be less than 128 characters")
     private String title;
-    @NotBlank
+    @NotBlank(message = "Author cannot be empty")
+    @Size(max = 64, message = "Author must be less than 64 characters")
     private String author;
     @Isbn
     private String isbn;
-    @NotNull
-    @Positive
+    @NotNull(message = "Price cannot be empty")
+    @Positive(message = "Price must be at least 1")
     private BigDecimal price;
-    @Size(min = MIN_DESCRIPTION_LENGTH, max = MAX_DESCRIPTION_LENGTH)
+    @Size(max = 1024, message = "Description must be less than 1024 characters")
     private String description;
+    @Size(max = 256, message = "Cover image URL must be less than 256 characters")
     private String coverImage;
     private Set<Long> categoryIds;
 }

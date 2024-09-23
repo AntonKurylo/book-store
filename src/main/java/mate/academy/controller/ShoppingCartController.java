@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.cartitem.CreateCartItemRequestDto;
-import mate.academy.dto.cartitem.UpdateCartItemRequestDto;
+import mate.academy.dto.shoppingcart.CreateCartItemRequestDto;
 import mate.academy.dto.shoppingcart.ShoppingCartDto;
+import mate.academy.dto.shoppingcart.UpdateCartItemRequestDto;
 import mate.academy.service.ShoppingCartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,9 +47,9 @@ public class ShoppingCartController {
             description = "Updates the quantity of the item in the shopping cart by id")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/items/{cartItemId}")
-    public ShoppingCartDto updateCartItem(@PathVariable Long cartItemId,
+    public ShoppingCartDto updateCartItemById(@PathVariable Long cartItemId,
                                           @RequestBody @Valid UpdateCartItemRequestDto requestDto) {
-        return shoppingCartService.updateCartItem(cartItemId, requestDto);
+        return shoppingCartService.updateCartItemById(cartItemId, requestDto);
     }
 
     @Operation(summary = "Remove a cartItem by id",
@@ -57,7 +57,7 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("/items/{cartItemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCartItem(@PathVariable Long cartItemId) {
-        shoppingCartService.deleteCartItem(cartItemId);
+    public void deleteCartItemById(@PathVariable Long cartItemId) {
+        shoppingCartService.deleteCartItemById(cartItemId);
     }
 }

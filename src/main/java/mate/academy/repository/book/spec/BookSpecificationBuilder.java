@@ -5,6 +5,7 @@ import mate.academy.dto.book.BookSearchParametersDto;
 import mate.academy.model.Book;
 import mate.academy.repository.SpecificationBuilder;
 import mate.academy.repository.SpecificationProviderManager;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +17,15 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     @Override
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> spec = Specification.where(null);
-        if (searchParameters.titles() != null && searchParameters.titles().length > 0) {
+        if (Strings.isNotBlank(searchParameters.title())) {
             spec = spec.and(bookSpecificationProviderManager
                     .getSpecificationProvider("title")
-                    .getSpecification(searchParameters.titles()));
+                    .getSpecification(searchParameters.title().trim()));
         }
-        if (searchParameters.authors() != null && searchParameters.authors().length > 0) {
+        if (searchParameters.author() != null && !searchParameters.author().isEmpty()) {
             spec = spec.and(bookSpecificationProviderManager
                     .getSpecificationProvider("author")
-                    .getSpecification(searchParameters.authors()));
+                    .getSpecification(searchParameters.author().trim()));
         }
         return spec;
     }

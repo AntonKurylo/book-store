@@ -39,7 +39,8 @@ public class Book {
     private String description;
     private String coverImage;
     @ManyToMany
-    @JoinTable(name = "books_categories",
+    @JoinTable(
+            name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;

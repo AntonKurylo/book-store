@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users-table
+      id: create-order-items-table
       author: mateacademy
       changes:
         - createTable:
-            tableName: users
+            tableName: order_items
             columns:
               - column:
                   name: id
@@ -14,32 +14,28 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: email
-                  type: varchar(128)
+                  name: order_id
+                  type: bigint
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: password
-                  type: varchar(256)
-                  constraints:
+                    foreignKeyName: fk_order_items_order
+                    referencedTableName: orders
+                    referencedColumnNames: id
                     nullable: false
               - column:
-                  name: first_name
-                  type: varchar(64)
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_items_book
+                    referencedTableName: books
+                    referencedColumnNames: id
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: integer
                   constraints:
                     nullable: false
               - column:
-                  name: last_name
-                  type: varchar(64)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: shipping_address
-                  type: varchar(256)
-              - column:
-                  name: is_deleted
-                  type: boolean
-                  defaultValueBoolean: false
+                  name: price
+                  type: decimal(19,2)
                   constraints:
                     nullable: false

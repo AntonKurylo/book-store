@@ -1,4 +1,4 @@
-package mate.academy.dto.cartitem;
+package mate.academy.dto.shoppingcart;
 
 public record CartItemDto(
         Long id,

@@ -40,7 +40,7 @@ public class CustomGlobalExceptionHandler {
         if (e instanceof FieldError fieldError) {
             String field = fieldError.getField();
             String message = e.getDefaultMessage();
-            return field + " " + message;
+            return field + ": " + message;
         }
         return e.getDefaultMessage();
     }

@@ -43,8 +43,8 @@ public class CategoryController {
             description = "Returns a list of all available categories")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
-    public List<CategoryDto> findAllCategories() {
-        return categoryService.findAll();
+    public List<CategoryDto> findAllCategories(Pageable pageable) {
+        return categoryService.findAll(pageable);
     }
 
     @Operation(summary = "Get a category by id", description = "Returns a category by id")
