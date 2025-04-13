@@ -20,7 +20,7 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true, columnDefinition = "varchar")
+    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(64)")
     @Enumerated(EnumType.STRING)
     private RoleName name;
 
