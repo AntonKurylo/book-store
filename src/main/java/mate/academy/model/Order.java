@@ -30,7 +30,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
-    @Column(nullable = false, unique = true, columnDefinition = "varchar")
+    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(64)")
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING;
     @Column(nullable = false)

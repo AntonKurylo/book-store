@@ -22,7 +22,7 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
                     .getSpecificationProvider("title")
                     .getSpecification(searchParameters.title().trim()));
         }
-        if (searchParameters.author() != null && !searchParameters.author().isEmpty()) {
+        if (Strings.isNotBlank(searchParameters.author())) {
             spec = spec.and(bookSpecificationProviderManager
                     .getSpecificationProvider("author")
                     .getSpecification(searchParameters.author().trim()));
