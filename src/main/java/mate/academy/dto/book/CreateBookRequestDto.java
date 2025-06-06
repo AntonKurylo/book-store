@@ -1,6 +1,7 @@
 package mate.academy.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -8,10 +9,12 @@ import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import mate.academy.validation.Isbn;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 public class CreateBookRequestDto {
     @NotBlank(message = "Title cannot be empty")
     @Size(max = 128, message = "Title must be less than 128 characters")
@@ -28,5 +31,6 @@ public class CreateBookRequestDto {
     private String description;
     @Size(max = 256, message = "Cover image URL must be less than 256 characters")
     private String coverImage;
+    @NotNull @NotEmpty
     private Set<Long> categoryIds;
 }

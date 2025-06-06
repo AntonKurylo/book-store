@@ -36,6 +36,14 @@ public class CustomGlobalExceptionHandler {
         return new ResponseEntity<>(body, status);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFoundExceptions(EntityNotFoundException ex) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        List<String> errors = List.of(ex.getMessage());
+        Map<String, Object> body = getBody(errors, status);
+        return new ResponseEntity<>(body, status);
+    }
+
     private String getErrorMessage(ObjectError e) {
         if (e instanceof FieldError fieldError) {
             String field = fieldError.getField();
