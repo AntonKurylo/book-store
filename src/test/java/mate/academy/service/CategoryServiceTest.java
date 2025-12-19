@@ -1,6 +1,7 @@
 package mate.academy.service;
 
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -13,13 +14,11 @@ import mate.academy.mapper.CategoryMapper;
 import mate.academy.model.Category;
 import mate.academy.repository.category.CategoryRepository;
 import mate.academy.service.impl.CategoryServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -55,11 +54,8 @@ public class CategoryServiceTest {
         CategoryDto savedCategoryDto = categoryService.save(requestDto);
 
         // Then
-        Assertions.assertThat(savedCategoryDto).isEqualTo(categoryDto);
+        assertThat(savedCategoryDto).isEqualTo(categoryDto);
 
-        verify(categoryMapper, Mockito.times(1)).toEntity(requestDto);
-        verify(categoryRepository, Mockito.times(1)).save(category);
-        verify(categoryMapper, Mockito.times(1)).toDto(category);
         verifyNoMoreInteractions(categoryRepository, categoryMapper);
     }
 
@@ -85,8 +81,8 @@ public class CategoryServiceTest {
         List<CategoryDto> categoryDtos = categoryService.findAll(pageable);
 
         // Then
-        Assertions.assertThat(categoryDtos).hasSize(1);
-        Assertions.assertThat(categoryDtos.get(0)).isEqualTo(categoryDto);
+        assertThat(categoryDtos).hasSize(1);
+        assertThat(categoryDtos.get(0)).isEqualTo(categoryDto);
 
         verifyNoMoreInteractions(categoryRepository, categoryMapper);
     }
@@ -111,7 +107,7 @@ public class CategoryServiceTest {
         CategoryDto categoryFromDbDto = categoryService.findById(id);
 
         // Then
-        Assertions.assertThat(categoryFromDbDto).isEqualTo(categoryDto);
+        assertThat(categoryFromDbDto).isEqualTo(categoryDto);
 
         verifyNoMoreInteractions(categoryRepository, categoryMapper);
     }
@@ -126,7 +122,7 @@ public class CategoryServiceTest {
         when(categoryRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
         // When + Then
-        Assertions.assertThatThrownBy(() -> categoryService.findById(nonExistentId))
+        assertThatThrownBy(() -> categoryService.findById(nonExistentId))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage(expected);
 
@@ -156,7 +152,7 @@ public class CategoryServiceTest {
         CategoryDto updatedCategoryDto = categoryService.updateById(id, requestDto);
 
         // Then
-        Assertions.assertThat(updatedCategoryDto).isEqualTo(categoryDto);
+        assertThat(updatedCategoryDto).isEqualTo(categoryDto);
 
         verifyNoMoreInteractions(categoryRepository, categoryMapper);
     }
@@ -173,7 +169,7 @@ public class CategoryServiceTest {
         when(categoryRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
         // When + Then
-        Assertions.assertThatThrownBy(() -> categoryService.updateById(nonExistentId, requestDto))
+        assertThatThrownBy(() -> categoryService.updateById(nonExistentId, requestDto))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage(expected);
 

@@ -23,7 +23,6 @@ import lombok.SneakyThrows;
 import mate.academy.dto.book.BookDto;
 import mate.academy.dto.book.BookSearchParametersDto;
 import mate.academy.dto.book.CreateBookRequestDto;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -142,7 +141,10 @@ public class BookControllerTest {
         BookDto actual =
                 objectMapper.readValue(result.getResponse().getContentAsString(), BookDto.class);
 
-        EqualsBuilder.reflectionEquals(expected, actual, "id");
+        assertThat(actual)
+                .usingRecursiveComparison()
+                .ignoringFields("id")
+                .isEqualTo(expected);
     }
 
     @WithMockUser(username = "user", roles = {"USER"})
@@ -171,7 +173,8 @@ public class BookControllerTest {
 
         // Then
         BookDto[] actual = objectMapper.readValue(
-                result.getResponse().getContentAsByteArray(), new TypeReference<BookDto[]>(){});
+                result.getResponse().getContentAsByteArray(), new TypeReference<BookDto[]>() {
+                });
 
         assertThat(actual).hasSize(3);
         assertThat(List.of(actual)).isEqualTo(expected);
@@ -221,7 +224,8 @@ public class BookControllerTest {
         // Then
         String responseContent = result.getResponse().getContentAsString();
         Map<String, Object> responseMap = objectMapper.readValue(
-                responseContent, new TypeReference<Map<String, Object>>() {});
+                responseContent, new TypeReference<Map<String, Object>>() {
+                });
         List<String> errors = (List<String>) responseMap.get("errors");
         String actual = errors.get(0);
 
@@ -287,7 +291,8 @@ public class BookControllerTest {
         // Then
         String responseContent = result.getResponse().getContentAsString();
         Map<String, Object> responseMap = objectMapper.readValue(
-                responseContent, new TypeReference<Map<String, Object>>() {});
+                responseContent, new TypeReference<Map<String, Object>>() {
+                });
         List<String> errors = (List<String>) responseMap.get("errors");
         String actual = errors.get(0);
         assertThat(actual).isEqualTo(expected);
@@ -331,7 +336,8 @@ public class BookControllerTest {
 
         // Then
         BookDto[] actual = objectMapper.readValue(
-                result.getResponse().getContentAsByteArray(), new TypeReference<BookDto[]>() {});
+                result.getResponse().getContentAsByteArray(), new TypeReference<BookDto[]>() {
+                });
 
         assertThat(actual).hasSize(3);
     }

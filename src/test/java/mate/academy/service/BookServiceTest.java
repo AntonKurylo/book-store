@@ -1,6 +1,7 @@
 package mate.academy.service;
 
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -17,13 +18,11 @@ import mate.academy.model.Book;
 import mate.academy.repository.book.BookRepository;
 import mate.academy.repository.book.spec.BookSpecificationBuilder;
 import mate.academy.service.impl.BookServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -73,11 +72,8 @@ public class BookServiceTest {
         BookDto savedBookDto = bookService.save(requestDto);
 
         // Then
-        Assertions.assertThat(savedBookDto).isEqualTo(bookDto);
+        assertThat(savedBookDto).isEqualTo(bookDto);
 
-        verify(bookMapper, Mockito.times(1)).toEntity(requestDto);
-        verify(bookRepository, Mockito.times(1)).save(book);
-        verify(bookMapper, Mockito.times(1)).toDto(book);
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
 
@@ -110,8 +106,8 @@ public class BookServiceTest {
         List<BookDto> bookDtos = bookService.findAll(pageable);
 
         // Then
-        Assertions.assertThat(bookDtos).hasSize(1);
-        Assertions.assertThat(bookDtos.get(0)).isEqualTo(bookDto);
+        assertThat(bookDtos).hasSize(1);
+        assertThat(bookDtos.get(0)).isEqualTo(bookDto);
 
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
@@ -142,7 +138,7 @@ public class BookServiceTest {
         BookDto bookFromDbDto = bookService.findById(id);
 
         // Then
-        Assertions.assertThat(bookFromDbDto).isEqualTo(bookDto);
+        assertThat(bookFromDbDto).isEqualTo(bookDto);
 
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
@@ -157,7 +153,7 @@ public class BookServiceTest {
         when(bookRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
         // When + Then
-        Assertions.assertThatThrownBy(() -> bookService.findById(nonExistentId))
+        assertThatThrownBy(() -> bookService.findById(nonExistentId))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining(expected);
 
@@ -197,7 +193,7 @@ public class BookServiceTest {
         BookDto updatedBookDto = bookService.updateById(id, requestDto);
 
         // Then
-        Assertions.assertThat(updatedBookDto).isEqualTo(bookDto);
+        assertThat(updatedBookDto).isEqualTo(bookDto);
 
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
@@ -217,7 +213,7 @@ public class BookServiceTest {
         when(bookRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
         // When + Then
-        Assertions.assertThatThrownBy(() -> bookService.updateById(nonExistentId, requestDto))
+        assertThatThrownBy(() -> bookService.updateById(nonExistentId, requestDto))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining(expected);
 
@@ -257,8 +253,8 @@ public class BookServiceTest {
         List<BookDto> bookDtos = bookService.search(requestDto, pageable);
 
         // Then
-        Assertions.assertThat(bookDtos).hasSize(1);
-        Assertions.assertThat(bookDtos.get(0)).isEqualTo(bookDto);
+        assertThat(bookDtos).hasSize(1);
+        assertThat(bookDtos.get(0)).isEqualTo(bookDto);
 
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
@@ -299,8 +295,8 @@ public class BookServiceTest {
                 bookService.findAllByCategoryId(categoryId, pageable);
 
         // Then
-        Assertions.assertThat(bookDtos).hasSize(1);
-        Assertions.assertThat(bookDtos.get(0)).isEqualTo(bookDto);
+        assertThat(bookDtos).hasSize(1);
+        assertThat(bookDtos.get(0)).isEqualTo(bookDto);
 
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
