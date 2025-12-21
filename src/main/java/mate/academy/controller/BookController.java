@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,7 +72,8 @@ public class BookController {
             description = "Returns a list of available books by search parameters")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/search")
-    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters, Pageable pageable) {
+    public List<BookDto> searchBooks(
+            @ModelAttribute @Valid BookSearchParametersDto searchParameters, Pageable pageable) {
         return bookService.search(searchParameters, pageable);
     }
 }

@@ -18,12 +18,12 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> spec = Specification.where(null);
         if (Strings.isNotBlank(searchParameters.title())) {
-            spec = spec.and(bookSpecificationProviderManager
+            spec = spec.or(bookSpecificationProviderManager
                     .getSpecificationProvider("title")
                     .getSpecification(searchParameters.title().trim()));
         }
         if (Strings.isNotBlank(searchParameters.author())) {
-            spec = spec.and(bookSpecificationProviderManager
+            spec = spec.or(bookSpecificationProviderManager
                     .getSpecificationProvider("author")
                     .getSpecification(searchParameters.author().trim()));
         }

@@ -20,6 +20,7 @@ public class BookSpecificationManager implements SpecificationProviderManager<Bo
                 .findFirst()
                 .orElseThrow(() ->
                         new SpecificationNotFoundException(
-                                "Can't find the right specification provider for the key: " + key));
+                                "Cannot find the right specification provider for the key: "
+                                        + key));
     }
 }

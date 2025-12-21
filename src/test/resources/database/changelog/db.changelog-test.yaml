@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/changes/01-create-books-table.yaml
+  - include:
+      file: classpath:/db/changelog/changes/09-create-categories-table.yaml
+  - include:
+      file: classpath:/db/changelog/changes/11-create-books-categories-table.yaml
