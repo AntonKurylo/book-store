@@ -6,7 +6,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-DB-4479A1?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
-Online Book Store REST API is a backend application that provides a comprehensive set of RESTful endpoints for core
+Online Bookstore REST API is a backend application that provides a comprehensive set of RESTful endpoints for core
 online bookstore operations.
 
 The system supports user registration and authentication, browsing and purchasing books, shopping cart management, and
@@ -29,7 +29,6 @@ The application is designed following REST principles, role-based access control
 - [🔐 Authentication & Authorization](#-authentication--authorization-1)
 - [🧠 Challenges & Solutions](#-challenges--solutions)
 - [🎬 API Demo](#-api-demo)
-- [📄 License](#-license)
 
 ---
 
@@ -37,56 +36,54 @@ The application is designed following REST principles, role-based access control
 
 ### 🔐 Authentication & Authorization
 
-* User registration and login
-* JWT-based authentication
-* Role-based access control:
-
-    * `ROLE_USER`
-    * `ROLE_ADMIN`
-* Access rules:
-
-    * Public endpoints for authentication
-    * User-only access for shopping cart and orders
-    * Admin-only access for book, category, and order management
+- User registration and login
+- JWT-based authentication
+- Role-based access control:
+    - `USER`
+    - `ADMIN`
+- Access rules:
+    - Public endpoints for authentication
+    - User-only access for shopping cart and orders
+    - Admin-only access for book, category, and order management
 
 ---
 
 ### 📚 Book & Category Management
 
-* Create, update, and delete books (Admin)
-* Create, update, and delete categories (Admin)
-* Retrieve all books
-* Retrieve book details by ID
-* Search books by title
-* Retrieve books by category
+- Create, update, and delete books (Admin)
+- Create, update, and delete categories (Admin)
+- Retrieve all books
+- Retrieve book details by ID
+- Search books by title
+- Retrieve books by category
 
 ---
 
 ### 🛒 Shopping Cart
 
-* Each authenticated user has a personal shopping cart
-* Add books to the cart
-* View cart contents
-* Update cart item quantity
-* Remove items from the cart
+- Each authenticated user has a personal shopping cart
+- Add books to the cart
+- View cart contents
+- Update cart item quantity
+- Remove items from the cart
 
 ---
 
 ### 📦 Orders
 
-* Place an order based on the current shopping cart
-* View order history for the authenticated user
-* View order details
-* Update order status (Admin)
+- Place an order based on the current shopping cart
+- View order history for the authenticated user
+- View order details
+- Update order status (Admin)
 
 ---
 
 ### 📘 Development & Documentation
 
-* RESTful API design
-* Layered application architecture
-* Swagger / OpenAPI documentation
-* Consistent request and response formats
+- RESTful API design
+- Layered application architecture
+- Swagger/OpenAPI documentation
+- Consistent request and response formats
 
 ---
 
@@ -100,7 +97,7 @@ The application is designed following REST principles, role-based access control
 | Persistence      | Spring Data JPA                  |
 | Database         | MySQL                            |
 | Migrations       | Liquibase                        |
-| Documentation    | Swagger / OpenAPI                |
+| Documentation    | Swagger/OpenAPI                  |
 | Utilities        | Lombok, MapStruct                |
 | Build Tool       | Maven                            |
 | Testing          | JUnit 5, Mockito, Testcontainers |
@@ -128,7 +125,7 @@ the system:
 #### 🔐 Security
 
 Authentication and authorization are handled globally using **Spring Security** with **JWT-based authentication**,
-providing **stateless** access control with no server-side sessions and ensuring secure access to protected
+providing **stateless** access control with no server-side sessions and ensuring **secure access** to protected
 endpoints based on user roles and ownership of resources.
 
 ---
@@ -213,7 +210,7 @@ GET    /api/orders/{id}      - Retrieve order details
 
 ## 📘 API Documentation
 
-The API is documented using **Swagger / OpenAPI** and is available via **Swagger UI**.
+The API is documented using **Swagger/OpenAPI** and is available via **Swagger UI**.
 
 Once the application is running, you can explore and test all endpoints directly in your browser:
 
@@ -276,7 +273,7 @@ This project uses environment variables for sensitive configuration.
 ### 4️⃣ Build and Run the Application
 
 ```bash
-  docker compose up --build
+  docker-compose up --build
 ```
 
 This will:
@@ -343,13 +340,13 @@ All secured endpoints require a valid JWT token to be provided in the `Authoriza
 
 ### 🔑 Authentication Flow
 
-1. **Register a new user**
+1. Register a new user
 
    ```htpp
    POST /auth/register
    ```
 
-2. Login with credentials (email & password)
+2. Login with credentials (email and password)
 
    ```htpp
    POST /auth/login
@@ -359,16 +356,16 @@ All secured endpoints require a valid JWT token to be provided in the `Authoriza
 
     ```json
    {
-   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+       "token": "your-jwt-token"
    }
    ```
 
 3. Access secured endpoints
-   у
+
    The token must be included in every protected request:
 
    ```htpp
-   Authorization: Bearer <your-token>
+   Authorization: Bearer <your-jwt-token>
    ```
 
 ### 🛂 Authorization & Roles
@@ -377,14 +374,14 @@ Access to endpoints is controlled using **role-based authorization** with Spring
 
 #### Available roles
 
-##### `ROLE_USER`
+##### `USER`
 
 - View books
 - View categories
 - Manage own cart
 - Create and view own orders
 
-##### `ROLE_ADMIN`
+##### `ADMIN`
 
 - Manage books (CRUD)
 - Manage categories (CRUD)
@@ -438,14 +435,6 @@ maintainable API that demonstrates practical skills in **Spring Boot, security, 
 
 ## 🎬 API Demo
 
-A short video showcasing the core features of the Online Book Store REST API.
+A short video showcasing the core features of the Online Bookstore REST API.
 
 👉 [Watch the demo](https://www.loom.com/share/8f5fed37903b4c0a9f67f26f9883d8e0)
-
----
-
-## 📄 License
-
-This project was created for **educational and portfolio purposes**.  
-The source code may be used as a reference for learning and personal projects.
-
