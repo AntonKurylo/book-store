@@ -32,7 +32,7 @@ public class CategoryController {
     private final BookService bookService;
 
     @Operation(summary = "Create a new category", description = "Creates a new category")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto createCategory(@RequestBody @Valid CreateCategoryRequestDto requestDto) {
@@ -41,21 +41,21 @@ public class CategoryController {
 
     @Operation(summary = "Get all categories",
             description = "Returns a list of all available categories")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public List<CategoryDto> findAllCategories(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
     @Operation(summary = "Get a category by id", description = "Returns a category by id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public CategoryDto findCategoryById(@PathVariable Long id) {
         return categoryService.findById(id);
     }
 
     @Operation(summary = "Update a category by id", description = "Updates a category by id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public CategoryDto updateCategoryById(@PathVariable Long id,
                                           @RequestBody @Valid CreateCategoryRequestDto requestDto) {
@@ -63,7 +63,7 @@ public class CategoryController {
     }
 
     @Operation(summary = "Remove a category by id", description = "Removes a category by id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategoryById(@PathVariable Long id) {
@@ -72,7 +72,7 @@ public class CategoryController {
 
     @Operation(summary = "Get all books by category id",
             description = "Returns a list of all available books by category id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}/books")
     public List<BookDtoWithoutCategoryIds> findAllBooksByCategoryId(
             @PathVariable Long id, Pageable pageable) {

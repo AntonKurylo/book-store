@@ -29,7 +29,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @Operation(summary = "Create a new order", description = "Creates a new order")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public OrderDto createOrder(@RequestBody @Valid CreateOrderRequestDto requestDto) {
         return orderService.save(requestDto);
@@ -37,14 +37,14 @@ public class OrderController {
 
     @Operation(summary = "Get all orders by user",
             description = "Returns a list of all user orders")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<OrderDto> findAllOrdersByUser(Pageable pageable) {
         return orderService.findAllByUser(pageable);
     }
 
     @Operation(summary = "Update an order by id", description = "Updates order status by id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{orderId}")
     public UpdateOrderResponseDto updateOrderById(
             @PathVariable Long orderId, @RequestBody @Valid UpdateOrderRequestDto requestDto) {
@@ -53,7 +53,7 @@ public class OrderController {
 
     @Operation(summary = "Get all order items by order id",
             description = "Returns a list of all order items")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("{orderId}/items")
     public List<OrderItemDto> findAllOrderItemsByOrderId(
             @PathVariable Long orderId, Pageable pageable) {
@@ -62,7 +62,7 @@ public class OrderController {
 
     @Operation(summary = "Get a specific order item within an order",
             description = "Returns an order item by order id and order item id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("{orderId}/items/{orderItemId}")
     public OrderItemDto findSpecificOrderItemWithinOrder(
             @PathVariable Long orderId, @PathVariable Long orderItemId) {

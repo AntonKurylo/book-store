@@ -6,24 +6,24 @@ databaseChangeLog:
         - insert:
             tableName: cart_items
             columns:
-              - column: { name: shopping_cart_id, valueNumeric: "1" }
+              - column: { name: shopping_cart_id, valueNumeric: "2" }
               - column: { name: book_id, valueNumeric: "1" }
               - column: { name: quantity, valueNumeric: "11" }
         - insert:
             tableName: cart_items
             columns:
-              - column: { name: shopping_cart_id, valueNumeric: "1" }
+              - column: { name: shopping_cart_id, valueNumeric: "2" }
               - column: { name: book_id, valueNumeric: "2" }
               - column: { name: quantity, valueNumeric: "22" }
         - insert:
             tableName: cart_items
             columns:
-              - column: { name: shopping_cart_id, valueNumeric: "2" }
+              - column: { name: shopping_cart_id, valueNumeric: "3" }
               - column: { name: book_id, valueNumeric: "1" }
               - column: { name: quantity, valueNumeric: "11" }
         - insert:
             tableName: cart_items
             columns:
-              - column: { name: shopping_cart_id, valueNumeric: "2" }
+              - column: { name: shopping_cart_id, valueNumeric: "3" }
               - column: { name: book_id, valueNumeric: "2" }
               - column: { name: quantity, valueNumeric: "22" }

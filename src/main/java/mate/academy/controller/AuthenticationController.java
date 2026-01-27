@@ -1,6 +1,7 @@
 package mate.academy.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Authentication management", description = "Endpoints for registration and login")
 @RestController
 @RequestMapping("/auth")
+@SecurityRequirements
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final UserService userService;

@@ -29,32 +29,32 @@ public class ShoppingCartController {
 
     @Operation(summary = "Get a shopping cart by user",
             description = "Returns a shopping cart by user")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ShoppingCartDto findByUser() {
         return shoppingCartService.findByUser();
     }
 
-    @Operation(summary = "Add cartItem",
+    @Operation(summary = "Add cart item",
             description = "Adds item to the shopping cart")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ShoppingCartDto addCartItem(@RequestBody @Valid CreateCartItemRequestDto requestDto) {
         return shoppingCartService.addCartItem(requestDto);
     }
 
-    @Operation(summary = "Update a cartItem by id",
+    @Operation(summary = "Update a cart item by id",
             description = "Updates the quantity of the item in the shopping cart by id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/items/{cartItemId}")
     public ShoppingCartDto updateCartItemById(@PathVariable Long cartItemId,
                                           @RequestBody @Valid UpdateCartItemRequestDto requestDto) {
         return shoppingCartService.updateCartItemById(cartItemId, requestDto);
     }
 
-    @Operation(summary = "Remove a cartItem by id",
+    @Operation(summary = "Remove a cart item by id",
             description = "Removes item from the shopping cart by id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/items/{cartItemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCartItemById(@PathVariable Long cartItemId) {

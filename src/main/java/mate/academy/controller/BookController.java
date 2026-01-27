@@ -31,7 +31,7 @@ public class BookController {
     private final BookService bookService;
 
     @Operation(summary = "Create a new book", description = "Creates a new book")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
@@ -39,21 +39,21 @@ public class BookController {
     }
 
     @Operation(summary = "Get all books", description = "Returns a list of all available books")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public List<BookDto> findAllBooks(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @Operation(summary = "Get a book by id", description = "Returns a book by id")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public BookDto findBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @Operation(summary = "Update a book by id", description = "Updates a book by id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public BookDto updateBookById(@PathVariable Long id,
                                   @RequestBody @Valid CreateBookRequestDto requestDto) {
@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @Operation(summary = "Remove a book by id", description = "Removes a book by id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBookById(@PathVariable Long id) {
@@ -70,7 +70,7 @@ public class BookController {
 
     @Operation(summary = "Search books by search parameters",
             description = "Returns a list of available books by search parameters")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/search")
     public List<BookDto> searchBooks(
             @ModelAttribute @Valid BookSearchParametersDto searchParameters, Pageable pageable) {

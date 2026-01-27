@@ -31,6 +31,6 @@ public class CreateBookRequestDto {
     private String description;
     @Size(max = 256, message = "Cover image URL must be less than 256 characters")
     private String coverImage;
-    @NotNull @NotEmpty
+    @NotEmpty
     private Set<Long> categoryIds;
 }
