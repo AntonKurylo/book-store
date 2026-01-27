@@ -6,8 +6,8 @@ databaseChangeLog:
         - insert:
             tableName: orders
             columns:
-              - column: { name: user_id, valueNumeric: "3" }
+              - column: { name: user_id, valueNumeric: "2" }
               - column: { name: status, value: "DELIVERED" }
               - column: { name: total, valueNumeric: "124.95" }
-              - column: { name: order_date, valueDate: "2024-01-01 00:00:00" }
+              - column: { name: order_date, valueDate: "2026-01-01 00:00:00" }
               - column: { name: shipping_address, value: "Kyiv, Naukova street, 1" }

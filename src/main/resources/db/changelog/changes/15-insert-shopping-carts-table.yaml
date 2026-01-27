@@ -6,10 +6,6 @@ databaseChangeLog:
         - insert:
             tableName: shopping_carts
             columns:
-              - column: { name: user_id, valueNumeric: "1" }
-        - insert:
-            tableName: shopping_carts
-            columns:
               - column: { name: user_id, valueNumeric: "2" }
         - insert:
             tableName: shopping_carts

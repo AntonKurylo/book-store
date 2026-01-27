@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: users
             columns:
               - column: { name: email, value: "admin@mateacademy.com" }
-              - column: { name: password, value: "$2a$10$zvE/36XMrheW.2USSyf2RehXS9zgyibDBrkqrXtka2QcypLTL8286"}
+              - column: { name: password, value: "$2a$10$QHtBIrwwfdyEecmjD6wp1OxErC0udRtV/yaAD.71TjnYxTq8uh/.K"}
               - column: { name: first_name, value: "Admin" }
               - column: { name: last_name, value: "Admin" }
               - column: { name: shipping_address, value: "Admin" }
